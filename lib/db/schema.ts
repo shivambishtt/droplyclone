@@ -22,7 +22,6 @@ export const files = pgTable("files", {
     isTrash: boolean("is_trash").default(false).notNull(),
 
     // timestamps
-
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull()
 
@@ -32,9 +31,10 @@ export const filesRelations = relations(files, ({ one, many }) => ({
     parent: one(files, {
         fields: [files.parentId], //acts as a foreign key
         references[files.id],
-    })
-
-
-        // could be many file inside the folder 
-        children: many(files)
+    }),
+    // could be many file inside the folder 
+    children: many(files)
 }))
+
+export const File = typeof files.$inferSelect // inferSelect basically creates type of file behind the scene. 
+export const NewFile = typeof files.$inferInsert    //Changing the schema will also change the inferSelect
