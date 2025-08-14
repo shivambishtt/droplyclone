@@ -23,14 +23,14 @@ export const files = pgTable("files", {
 
     // timestamps
     createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at").defaultNow().notNull()
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
 
 })
 // relations drizzle orm
 export const filesRelations = relations(files, ({ one, many }) => ({
     parent: one(files, {
         fields: [files.parentId], //acts as a foreign key
-        references[files.id],
+        references:[files.id],
     }),
     // could be many file inside the folder 
     children: many(files)
