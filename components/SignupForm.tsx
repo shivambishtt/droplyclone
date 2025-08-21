@@ -1,17 +1,18 @@
 "use client"
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from "next/link";
 import { useForm } from "react-hook-form"
 import { useSignUp } from '@clerk/nextjs'
 import { z } from "zod"
 import { signupSchema } from '@/schema/signupSchema'
 import { verificationCodeSchema } from '@/schema/verificationCodeSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
-import { Card, CardBody, CardHeader } from '@heroui/card'
+import { Card, CardBody, CardHeader, CardFooter } from "@heroui/card";
 import { Divider } from "@heroui/divider";
-import { Alert } from "@heroui/alert";
 import { Button } from '@heroui/button'
 import { Input } from '@heroui/input'
+import { Mail, Lock, AlertCircle, CheckCircle, Eye, EyeOff, } from "lucide-react";
 
 function SignupForm() {
     const router = useRouter()
@@ -19,6 +20,8 @@ function SignupForm() {
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
     const [authError, setAuthError] = useState<string | null>(null)
     const [verificationError, setVerificationError] = useState<string | null>(null)
+    const [showPassword, setShowPassword] = useState<boolean>(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
     const { signUp, isLoaded, setActive } = useSignUp()
 
     const {
@@ -176,7 +179,7 @@ function SignupForm() {
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <form onSubmit={handleSubmit(handleSignupSubmit)} className="space-y-6">
                     <div className="space-y-2">
                         <label
                             htmlFor="email"
