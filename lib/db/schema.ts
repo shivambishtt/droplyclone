@@ -1,4 +1,4 @@
-import { integer, pgTable, varchar, text, uuid, boolean, timestamp } from "drizzle-orm/pg-core"
+import { integer, pgTable, text, uuid, boolean, timestamp } from "drizzle-orm/pg-core"
 import { relations } from "drizzle-orm"
 
 export const files = pgTable("files", {
@@ -30,7 +30,7 @@ export const files = pgTable("files", {
 export const filesRelations = relations(files, ({ one, many }) => ({
     parent: one(files, {
         fields: [files.parentId], //acts as a foreign key
-        references:[files.id],
+        references: [files.id],
     }),
     // could be many file inside the folder 
     children: many(files)
