@@ -33,7 +33,10 @@ export async function POST(request: NextRequest) {
             isStarred: false,
             isTrash: false,
         }
-    } catch (error) {
 
+        const [newFile] = await db.insert(files).values(fileData).returning()
+        return NextResponse.json(newFile)
+    } catch (error) {
+        return NextResponse.json({ error: "Failed to save information to database" }, { status: 500 })
     }
 }   
