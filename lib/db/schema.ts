@@ -9,8 +9,8 @@ export const files = pgTable("files", {
     type: text("type").notNull(),
 
     // storage
-    fileUrl: text("field_url").notNull(),
-    thumbmailUrl: text("thumbnail_url"),
+    fileURL: text("field_url").notNull(),
+    thumbmailURL: text("thumbnail_url"),
 
     // who belongs to who
     userId: text("user_id").notNull(),
