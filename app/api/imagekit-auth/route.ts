@@ -1,4 +1,3 @@
-import { getUploadAuthParams } from "@imagekit/next/server"
 import { NextResponse } from "next/server"
 import { auth } from "@clerk/nextjs/server"
 import ImageKit from "imagekit"
