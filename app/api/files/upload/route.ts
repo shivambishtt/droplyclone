@@ -71,14 +71,24 @@ export async function POST(request: NextRequest) {
         const uniqueFilename = `${uuidv4()}.${fileExtension}`
 
 
-        await imagekit.upload({
+        const uploadResponse = await imagekit.upload({
             file: fileBuffer,
             fileName: uniqueFilename,
             folder: folderPath,
             useUniqueFileName: false
         })
         const fileData = {
-
+            name: originalFilename,
+            path: uploadResponse.filePath,
+            size: file.size,
+            type: file.type,
+            fileURL: uploadResponse.url,
+            thumbnailURL: uploadResponse.thumbnailUrl || null,
+            userId: userId,
+            parentId: parentId,
+            isFolder: false,
+            isStarred: false,
+            isTrash: false
         }
 
         const [newFile] = await db
