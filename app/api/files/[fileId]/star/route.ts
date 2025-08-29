@@ -24,10 +24,22 @@ export async function PATCH(request: NextRequest, props: { params: Promise<{ fil
                 )
             )
         if (!file) {
-            return NextResponse.json({ message: "File not found" }, { status: 400 })
+            return NextResponse.json({ message: "File not found" }, { status: 401 })
         }
-        
+
+        const updatedFiles = await db
+            .update(files)
+            .set({ isStarred: !file .isStarred })
+            .where(
+                and(
+                    eq(files.id, fileId),
+                    eq(files.userId, userId)
+                )
+            ).returning()
+        const updatedFile = updatedFiles[0]
+        return NextResponse.json(updatedFile)
     } catch (error) {
+        return NextResponse.json({ message: "Failed to update file" }, { status: 500 })
 
     }
 }

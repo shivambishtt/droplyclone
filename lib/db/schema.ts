@@ -19,11 +19,13 @@ export const files = pgTable("files", {
     // file/folder flags
     isFolder: boolean("is_folder").default(false).notNull(),
     isStarred: boolean("is_starred").default(false).notNull(),
+    isDeleted: boolean("is_deleted").default(false).notNull(),
     isTrash: boolean("is_trash").default(false).notNull(),
 
     // timestamps
     createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => new Date()),
+    trashedAt: timestamp("trashed_at", { mode: "date" }),
 
 })
 // relations drizzle orm
