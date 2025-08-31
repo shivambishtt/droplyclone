@@ -1,3 +1,4 @@
+"use client"
 import type { ThemeProviderProps } from "next-themes"
 import { ImageKitProvider } from "imagekitio-next"
 
